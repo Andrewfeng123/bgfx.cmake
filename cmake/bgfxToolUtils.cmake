@@ -215,7 +215,7 @@ if(TARGET bgfx::texturec)
 		add_custom_command(
 			OUTPUT ${ARG_OUTPUT} #
 			COMMAND bgfx::texturec ${CLI} #
-			MAIN_DEPENDENCY ${ARG_INPUT} #
+			MAIN_DEPENDENCY ${ARG_FILE} #
 		)
 	endfunction()
 endif()
@@ -279,12 +279,12 @@ if(TARGET bgfx::geometryc)
 
 		# --packnormal
 		if(ARG_PACKNORMAL)
-			list(APPEND CLI "--packnormal ${ARG_PACKNORMAL}")
+			list(APPEND CLI "--packnormal" "${ARG_PACKNORMAL}")
 		endif()
 
 		# --packuv
 		if(ARG_PACKUV)
-			list(APPEND CLI "--packuv" ${ARG_PACKUV})
+			list(APPEND CLI "--packuv" "${ARG_PACKUV}")
 		endif()
 
 		# --tangent
@@ -352,7 +352,7 @@ if(TARGET bgfx::geometryc)
 		add_custom_command(
 			OUTPUT ${ARG_OUTPUT} #
 			COMMAND bgfx::geometryc ${CLI} #
-			MAIN_DEPENDENCY ${ARG_INPUT} #
+			MAIN_DEPENDENCY ${ARG_FILE} #
 		)
 	endfunction()
 endif()
@@ -542,8 +542,6 @@ if(TARGET bgfx::shaderc)
 	function(_bgfx_get_profile_ext PROFILE PROFILE_EXT)
 		string(REPLACE 300_es essl PROFILE ${PROFILE})
 		string(REPLACE 120 glsl PROFILE ${PROFILE})
-		string(REPLACE spirv spv PROFILE ${PROFILE})
-		string(REPLACE metal mtl PROFILE ${PROFILE})
 		string(REPLACE s_3_0 dx9 PROFILE ${PROFILE})
 		string(REPLACE s_4_0 dx10 PROFILE ${PROFILE})
 		string(REPLACE s_5_0 dx11 PROFILE ${PROFILE})
